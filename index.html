@@ -419,7 +419,7 @@
                     <div class="space-y-3">
                         <label class="text-xs font-semibold uppercase tracking-wider text-gray-500">Your Personal Invite Link</label>
                         <div class="flex items-center space-x-2">
-                            <input type="text" readonly id="inviteUrlDisplay" value="https://your-username.github.io/worldconnect/?invite=WC-9842" class="w-full p-2.5 rounded-xl border theme-border bg-gray-50 dark:bg-gray-800 text-xs font-mono">
+                            <input type="text" readonly id="inviteUrlDisplay" value="https://your-username.github.io/buddyup/?invite=WC-9842" class="w-full p-2.5 rounded-xl border theme-border bg-gray-50 dark:bg-gray-800 text-xs font-mono">
                             <button onclick="copyInviteLink()" class="theme-btn-primary px-4 py-2.5 rounded-xl text-xs font-bold shrink-0">
                                 Copy Link
                             </button>
@@ -429,7 +429,7 @@
                     <div class="pt-4 border-t theme-border space-y-3">
                         <h4 class="text-sm font-semibold">Email / Message Preview Template</h4>
                         <div class="p-4 rounded-xl theme-accent-light border theme-border text-xs space-y-2">
-                            <p class="font-bold">"Hey! Join me on WorldConnect!"</p>
+                            <p class="font-bold">"Hey! Join me on BuddyUp!"</p>
                             <p class="text-gray-600 dark:text-gray-300">I am using this global social platform to share moments, practice languages, and meet awesome people worldwide!</p>
                         </div>
                     </div>
@@ -507,7 +507,7 @@
             </button>
             
             <div class="text-center">
-                <h3 class="text-2xl font-extrabold font-heading">Welcome to WorldConnect</h3>
+                <h3 class="text-2xl font-extrabold font-heading">Welcome to BuddyUP</h3>
                 <p class="text-xs theme-text-muted mt-1">Connect with friends across all continents</p>
             </div>
 
@@ -521,7 +521,7 @@
             <form id="loginForm" onsubmit="handleAuthSubmit(event, 'login')" class="space-y-3 text-xs">
                 <div>
                     <label class="block font-semibold mb-1">Email Address</label>
-                    <input type="email" required placeholder="alex@worldconnect.com" class="w-full p-2.5 rounded-xl border theme-border bg-transparent focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                    <input type="email" required placeholder="alex@BuddyUP.com" class="w-full p-2.5 rounded-xl border theme-border bg-transparent focus:ring-2 focus:ring-blue-400 focus:outline-none">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1">Password</label>
@@ -586,7 +586,7 @@
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300">
-                Follow this simple step-by-step guide to publish **WorldConnect** online for free in under 3 minutes!
+                Follow this simple step-by-step guide to publish **BuddyUP** online for free in under 3 minutes!
             </p>
 
             <div class="space-y-4 text-xs sm:text-sm">
@@ -595,7 +595,7 @@
                     <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">1</span>
                     <div>
                         <h4 class="font-bold mb-0.5">Create a GitHub Repository</h4>
-                        <p class="text-gray-600 dark:text-gray-300">Go to GitHub, click **New Repository**, and name it <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">worldconnect</code> or <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">your-username.github.io</code>.</p>
+                        <p class="text-gray-600 dark:text-gray-300">Go to GitHub, click **New Repository**, and name it <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">BuddyUP</code> or <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">your-username.github.io</code>.</p>
                     </div>
                 </div>
 
@@ -622,7 +622,7 @@
                     <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">4</span>
                     <div>
                         <h4 class="font-bold mb-0.5">You're Live!</h4>
-                        <p class="text-gray-600 dark:text-gray-300">In less than a minute, your web application will be live at: <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">https://your-username.github.io/worldconnect/</code></p>
+                        <p class="text-gray-600 dark:text-gray-300">In less than a minute, your web application will be live at: <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">https://your-username.github.io/BuddyUP/</code></p>
                     </div>
                 </div>
             </div>
@@ -643,7 +643,7 @@
 
     <!-- Footer -->
     <footer class="theme-header border-t py-4 text-center text-xs theme-text-muted mt-6">
-        <p>WorldConnect &copy; 2026 - Connecting people everywhere seamlessly.</p>
+        <p>BuddyUP &copy; 2026 - Connecting people everywhere seamlessly.</p>
     </footer>
 
     <!-- Application Logic Script -->
@@ -709,9 +709,9 @@
             document.getElementById('profileMoodBadge').innerText = icon;
             document.getElementById('postMoodIndicator').innerText = `Mood: ${icon}`;
 
-            localStorage.setItem('worldconnect_mood', moodKey);
-            localStorage.setItem('worldconnect_mood_icon', icon);
-            localStorage.setItem('worldconnect_mood_name', name);
+            localStorage.setItem('BuddyUP_mood', moodKey);
+            localStorage.setItem('BuddyUP_mood_icon', icon);
+            localStorage.setItem('BuddyUP_mood_name', name);
 
             showToast(`Theme updated to ${name}!`);
         }
@@ -1025,9 +1025,9 @@
         // Initializer
         window.onload = function() {
             // Restore saved mood from local storage if existing
-            const savedMood = localStorage.getItem('worldconnect_mood');
-            const savedIcon = localStorage.getItem('worldconnect_mood_icon');
-            const savedName = localStorage.getItem('worldconnect_mood_name');
+            const savedMood = localStorage.getItem('BuddyUP_mood');
+            const savedIcon = localStorage.getItem('BuddyUP_mood_icon');
+            const savedName = localStorage.getItem('BuddyUP_mood_name');
 
             if (savedMood && savedIcon && savedName) {
                 setMood(savedMood, savedIcon, savedName);
