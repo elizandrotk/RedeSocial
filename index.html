@@ -1,1304 +1,921 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="h-full">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buddy Up - "A Rede Socia" l</title>
-    <!-- Tailwind CSS CDN -->
+    <title>WorldConnect - Rede Social Global</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Dynamic Theme Styling with CSS Variables -->
     <style>
-        /* Base Root Variables & Mood Color Palette System */
         :root {
-            /* Default: Nostálgico Orkut */
-            --bg-main: #e2e8f0;
+            --bg-main: #f3f4f6;
             --bg-card: #ffffff;
-            --primary: #3b5998;
-            --primary-hover: #2d4373;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #cbd5e1;
-            --accent-color: #e25e98;
-            --header-bg: #3b5998;
-            --header-text: #ffffff;
-            --chip-bg: #f1f5f9;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --accent-primary: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-light: #eff6ff;
+            --border-color: #e5e7eb;
+            --ring-color: rgba(59, 130, 246, 0.3);
+            --header-bg: #ffffff;
         }
 
-        body[data-mood="orkut"] {
-            --bg-main: #d9e2ec;
+        /* Mood Theme Definitions */
+        [data-theme="feliz"] {
+            --bg-main: #fffbeb;
             --bg-card: #ffffff;
-            --primary: #3b5998;
-            --primary-hover: #294277;
-            --text-main: #102a43;
-            --text-muted: #486581;
-            --border-color: #bccadc;
-            --accent-color: #e85d04;
-            --header-bg: #3b5998;
-            --header-text: #ffffff;
-            --chip-bg: #f0f4f8;
-        }
-
-        body[data-mood="happy"] {
-            --bg-main: #fffbe3;
-            --bg-card: #ffffff;
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --text-main: #451a03;
-            --text-muted: #92400e;
+            --text-main: #78350f;
+            --text-muted: #b45309;
+            --accent-primary: #f59e0b;
+            --accent-hover: #d97706;
+            --accent-light: #fef3c7;
             --border-color: #fde68a;
-            --accent-color: #f59e0b;
-            --header-bg: #f59e0b;
-            --header-text: #ffffff;
-            --chip-bg: #fef3c7;
+            --ring-color: rgba(245, 158, 11, 0.3);
+            --header-bg: #fffbeb;
         }
 
-        body[data-mood="calm"] {
+        [data-theme="calmo"] {
             --bg-main: #ecfeff;
             --bg-card: #ffffff;
-            --primary: #0891b2;
-            --primary-hover: #0e7490;
-            --text-main: #083344;
-            --text-muted: #155e75;
+            --text-main: #164e63;
+            --text-muted: #0e7490;
+            --accent-primary: #06b6d4;
+            --accent-hover: #0891b2;
+            --accent-light: #cffaff;
             --border-color: #a5f3fc;
-            --accent-color: #06b6d4;
-            --header-bg: #0891b2;
-            --header-text: #ffffff;
-            --chip-bg: #cffaff;
+            --ring-color: rgba(6, 182, 212, 0.3);
+            --header-bg: #ecfeff;
         }
 
-        body[data-mood="creative"] {
+        [data-theme="criativo"] {
             --bg-main: #faf5ff;
             --bg-card: #ffffff;
-            --primary: #9333ea;
-            --primary-hover: #7e22ce;
-            --text-main: #3b0764;
-            --text-muted: #6b21a8;
+            --text-main: #581c87;
+            --text-muted: #7e22ce;
+            --accent-primary: #a855f7;
+            --accent-hover: #9333ea;
+            --accent-light: #f3e8ff;
             --border-color: #e9d5ff;
-            --accent-color: #ec4899;
-            --header-bg: #9333ea;
-            --header-text: #ffffff;
-            --chip-bg: #f3e8ff;
+            --ring-color: rgba(168, 85, 247, 0.3);
+            --header-bg: #faf5ff;
         }
 
-        body[data-mood="focused"] {
-            --bg-main: #0b0f19;
-            --bg-card: #151f32;
-            --primary: #10b981;
-            --primary-hover: #059669;
+        [data-theme="focado"] {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-color: #1e293b;
-            --accent-color: #38bdf8;
-            --header-bg: #151f32;
-            --header-text: #38bdf8;
-            --chip-bg: #1e293b;
+            --accent-primary: #06b6d4;
+            --accent-hover: #22d3ee;
+            --accent-light: #334155;
+            --border-color: #334155;
+            --ring-color: rgba(6, 182, 212, 0.3);
+            --header-bg: #1e293b;
         }
 
-        body[data-mood="romantic"] {
+        [data-theme="orkut"] {
+            --bg-main: #e8eefc;
+            --bg-card: #ffffff;
+            --text-main: #1e3a8a;
+            --text-muted: #3b82f6;
+            --accent-primary: #ec4899;
+            --accent-hover: #db2777;
+            --accent-light: #fce7f3;
+            --border-color: #bfdbfe;
+            --ring-color: rgba(236, 72, 153, 0.3);
+            --header-bg: #dbeafe;
+        }
+
+        [data-theme="apaixonado"] {
             --bg-main: #fff1f2;
             --bg-card: #ffffff;
-            --primary: #e11d48;
-            --primary-hover: #be123c;
-            --text-main: #4c0519;
-            --text-muted: #9f1239;
+            --text-main: #881337;
+            --text-muted: #be123c;
+            --accent-primary: #f43f5e;
+            --accent-hover: #e11d48;
+            --accent-light: #ffe4e6;
             --border-color: #fecdd3;
-            --accent-color: #f43f5e;
-            --header-bg: #e11d48;
-            --header-text: #ffffff;
-            --chip-bg: #ffe4e6;
+            --ring-color: rgba(244, 63, 94, 0.3);
+            --header-bg: #fff1f2;
         }
 
         body {
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
-            transition: background-color 0.4s ease, color 0.4s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .mood-card {
+        .theme-card {
             background-color: var(--bg-card);
             border-color: var(--border-color);
-            transition: background-color 0.4s ease, border-color 0.4s ease;
         }
 
-        .mood-bg-primary {
-            background-color: var(--primary);
+        .theme-text-muted {
+            color: var(--text-muted);
+        }
+
+        .theme-btn-primary {
+            background-color: var(--accent-primary);
             color: #ffffff;
+            transition: all 0.2s ease;
         }
 
-        .mood-bg-primary:hover {
-            background-color: var(--primary-hover);
+        .theme-btn-primary:hover {
+            background-color: var(--accent-hover);
         }
 
-        .mood-text-primary {
-            color: var(--primary);
+        .theme-accent-light {
+            background-color: var(--accent-light);
         }
 
-        .mood-border {
+        .theme-border {
             border-color: var(--border-color);
         }
 
-        .mood-chip {
-            background-color: var(--chip-bg);
-            color: var(--text-main);
-        }
-
-        .header-theme {
+        .theme-header {
             background-color: var(--header-bg);
-            color: var(--header-text);
-            transition: background-color 0.4s ease;
+            border-color: var(--border-color);
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
         }
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
         }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.4);
             border-radius: 4px;
         }
     </style>
 </head>
-<body data-mood="orkut" class="font-sans min-h-full flex flex-col antialiased">
+<body class="min-h-screen flex flex-col justify-between" data-theme="feliz">
 
-    <!-- GitHub Pages Deployment Guide Banner -->
-    <div id="githubGuideBanner" class="bg-indigo-900 text-white text-xs px-4 py-3 shadow-lg flex items-center justify-between border-b border-indigo-700">
-        <div class="flex items-center gap-2 overflow-x-auto">
-            <span class="bg-indigo-600 px-2 py-0.5 rounded-md font-bold uppercase text-[10px] tracking-wider whitespace-nowrap">
-                <i class="fa-brands fa-github mr-1"></i> Tutorial GitHub Pages
-            </span>
-            <span class="font-semibold text-indigo-100">Como publicar este site gratuitamente em 3 passos:</span>
-            <span class="hidden md:inline text-indigo-200">1. Crie um repositório no GitHub &bull; 2. Envie este arquivo como <b>index.html</b> &bull; 3. Ative o Pages nas configurações (Settings &gt; Pages &gt; Branch: main).</span>
-        </div>
-        <div class="flex items-center gap-2 ml-2 whitespace-nowrap">
-            <button onclick="openGitHubInstructionsModal()" class="bg-indigo-500 hover:bg-indigo-600 text-white px-2.5 py-1 rounded-lg font-bold text-[11px] transition">Ver Passo a Passo</button>
-            <button onclick="dismissGitHubBanner()" class="text-indigo-300 hover:text-white p-1"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>
-
-    <!-- Main Navigation Header -->
-    <header class="header-theme sticky top-0 z-40 shadow-md">
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 theme-header border-b shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+            <div class="flex items-center justify-between h-16 gap-2">
                 
                 <!-- Logo -->
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('feed')">
-                    <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl font-black backdrop-blur-sm">
-                        <i class="fa-solid fa-globe"></i>
+                    <div class="w-10 h-10 rounded-xl theme-btn-primary flex items-center justify-center shadow-md text-xl">
+                        <i class="fa-solid font-bold fa-globe text-white animate-spin-slow"></i>
                     </div>
-                    <div>
-                        <span class="text-xl font-extrabold tracking-tight block leading-none">WorldConnect</span>
-                        <span class="text-[10px] text-white/80 font-medium">Rede Social Sem Fronteiras</span>
-                    </div>
+                    <span class="text-xl font-extrabold tracking-tight hidden sm:inline">World<span class="text-blue-500">Connect</span></span>
                 </div>
 
-                <!-- Global Quick Search Input -->
-                <div class="hidden md:flex flex-1 max-w-md mx-8">
-                    <div class="relative w-full">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-white/70">
-                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                        </span>
-                        <input type="text" id="globalHeaderSearch" onkeyup="handleGlobalHeaderSearch(event)" placeholder="Buscar pessoas por nome, país ou idiomas..." class="w-full pl-9 pr-4 py-2 rounded-full bg-white/20 text-white placeholder-white/70 text-xs focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm transition">
-                    </div>
-                </div>
-
-                <!-- Profile Actions / Auth Switch -->
-                <div class="flex items-center space-x-3">
-                    <button onclick="toggleNotificationsModal()" class="relative p-2 rounded-full hover:bg-white/10 transition text-white" title="Notificações">
-                        <i class="fa-solid fa-bell text-lg"></i>
-                        <span id="notifBadge" class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+                <!-- Mood Selector Toolbar -->
+                <div class="relative group">
+                    <button id="moodDropdownBtn" class="flex items-center space-x-2 px-3 py-1.5 rounded-full border theme-border theme-accent-light text-xs sm:text-sm font-semibold transition-all shadow-sm">
+                        <span id="currentMoodIcon">😊</span>
+                        <span id="currentMoodName" class="hidden md:inline">Feliz</span>
+                        <i class="fa-solid fa-chevron-down text-xs ml-1 opacity-70"></i>
                     </button>
-
-                    <div id="userHeaderProfile" class="flex items-center space-x-2 bg-black/10 hover:bg-black/20 p-1.5 rounded-full cursor-pointer transition" onclick="switchTab('profile')">
-                        <img id="headerAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" class="w-8 h-8 rounded-full object-cover border border-white/50">
-                        <span id="headerUserName" class="text-xs font-semibold pr-2 hidden sm:inline">Sofia Silva</span>
+                    
+                    <!-- Dropdown Options -->
+                    <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 hidden group-hover:block hover:block z-50 py-2">
+                        <div class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">Escolha seu Humor</div>
+                        <button onclick="setMood('feliz', '😊', 'Feliz')" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-yellow-50 flex items-center space-x-2">
+                            <span>😊</span> <span>Feliz (Amarelo)</span>
+                        </button>
+                        <button onclick="setMood('calmo', '🌊', 'Calmo')" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-cyan-50 flex items-center space-x-2">
+                            <span>🌊</span> <span>Calmo (Ciano)</span>
+                        </button>
+                        <button onclick="setMood('criativo', '🎨', 'Criativo')" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-purple-50 flex items-center space-x-2">
+                            <span>🎨</span> <span>Criativo (Roxo)</span>
+                        </button>
+                        <button onclick="setMood('focado', '🌙', 'Focado Noturno')" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-slate-700 flex items-center space-x-2">
+                            <span>🌙</span> <span>Focado (Dark)</span>
+                        </button>
+                        <button onclick="setMood('orkut', '🌸', 'Nostálgico')" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-pink-50 flex items-center space-x-2">
+                            <span>🌸</span> <span>Nostálgico Orkut</span>
+                        </button>
+                        <button onclick="setMood('apaixonado', '❤️', 'Apaixonado')" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-red-50 flex items-center space-x-2">
+                            <span>❤️</span> <span>Apaixonado (Vermelho)</span>
+                        </button>
                     </div>
-
-                    <button id="authHeaderBtn" onclick="toggleAuthModal()" class="text-xs bg-white/20 hover:bg-white/30 text-white font-bold py-2 px-3 rounded-full transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-right-to-bracket"></i> <span id="authHeaderBtnText">Trocar Conta</span>
-                    </button>
                 </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex items-center space-x-1 sm:space-x-2">
+                    <button id="tab-feed" onclick="switchTab('feed')" class="px-3 py-2 rounded-lg font-medium text-sm flex items-center space-x-1 transition-colors theme-btn-primary">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="hidden md:inline">Início</span>
+                    </button>
+                    <button id="tab-search" onclick="switchTab('search')" class="px-3 py-2 rounded-lg font-medium text-sm flex items-center space-x-1 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fa-solid fa-compass"></i>
+                        <span class="hidden md:inline">Encontrar Amigos</span>
+                    </button>
+                    <button id="tab-requests" onclick="switchTab('requests')" class="px-3 py-2 rounded-lg font-medium text-sm flex items-center space-x-1 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 relative">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span class="hidden md:inline">Convites</span>
+                        <span class="w-2 h-2 bg-red-500 rounded-full absolute top-1.5 right-1.5"></span>
+                    </button>
+                    <button id="tab-profile" onclick="switchTab('profile')" class="px-3 py-2 rounded-lg font-medium text-sm flex items-center space-x-1 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="hidden md:inline">Meu Perfil</span>
+                    </button>
+                </nav>
+
+                <!-- GitHub Deploy Modal Trigger Button -->
+                <button onclick="openGithubModal()" class="px-3 py-1.5 bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 rounded-full text-xs font-semibold flex items-center space-x-1 shadow hover:opacity-90 transition-opacity">
+                    <i class="fa-brands fa-github text-base"></i>
+                    <span class="hidden sm:inline">Como Deployar</span>
+                </button>
             </div>
         </div>
-
-        <!-- Mood Selector Bar -->
-        <div class="bg-black/15 backdrop-blur-md border-t border-white/10 py-2">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto gap-2 text-xs">
-                <span class="font-bold flex items-center gap-1.5 whitespace-nowrap text-white/90 text-[11px]">
-                    <i class="fa-solid fa-face-smile"></i> Seu Humor Hoje:
-                </span>
-                
-                <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 sm:pb-0">
-                    <button onclick="setMood('orkut')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white text-[11px] font-medium transition flex items-center gap-1 whitespace-nowrap">
-                        <span>💙</span> Nostálgico / Orkut
-                    </button>
-                    <button onclick="setMood('happy')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white text-[11px] font-medium transition flex items-center gap-1 whitespace-nowrap">
-                        <span>☀️</span> Feliz & Energético
-                    </button>
-                    <button onclick="setMood('calm')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white text-[11px] font-medium transition flex items-center gap-1 whitespace-nowrap">
-                        <span>🌊</span> Calmo & Relaxado
-                    </button>
-                    <button onclick="setMood('creative')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white text-[11px] font-medium transition flex items-center gap-1 whitespace-nowrap">
-                        <span>🎨</span> Criativo & Inspirado
-                    </button>
-                    <button onclick="setMood('focused')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white text-[11px] font-medium transition flex items-center gap-1 whitespace-nowrap">
-                        <span>🌙</span> Focado / Cyber
-                    </button>
-                    <button onclick="setMood('romantic')" class="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/30 text-white text-[11px] font-medium transition flex items-center gap-1 whitespace-nowrap">
-                        <span>💖</span> Apaixonado
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sub-Page Tab Navigation -->
-        <nav class="bg-black/10 border-t border-black/10">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-around sm:justify-start sm:space-x-8 text-xs font-bold">
-                    <button id="tab-feed" onclick="switchTab('feed')" class="py-3 px-2 border-b-2 border-white text-white flex items-center gap-2 transition">
-                        <i class="fa-solid fa-house"></i> <span>Início / Feed Global</span>
-                    </button>
-                    <button id="tab-explore" onclick="switchTab('explore')" class="py-3 px-2 border-b-2 border-transparent text-white/80 hover:text-white flex items-center gap-2 transition">
-                        <i class="fa-solid fa-compass"></i> <span>Encontrar Amigos</span>
-                    </button>
-                    <button id="tab-requests" onclick="switchTab('requests')" class="py-3 px-2 border-b-2 border-transparent text-white/80 hover:text-white flex items-center gap-2 transition relative">
-                        <i class="fa-solid fa-user-plus"></i> <span>Convites</span>
-                        <span id="requestsCount" class="bg-red-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">1</span>
-                    </button>
-                    <button id="tab-profile" onclick="switchTab('profile')" class="py-3 px-2 border-b-2 border-transparent text-white/80 hover:text-white flex items-center gap-2 transition">
-                        <i class="fa-solid fa-id-card"></i> <span>Meu Perfil</span>
-                    </button>
-                </div>
-            </div>
-        </nav>
     </header>
 
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
 
-        <!-- ==================== TAB 1: FEED / HOME ==================== -->
+        <!-- ================= PAGE 1: FEED GLOBAL ================= -->
         <section id="page-feed" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- Left Sidebar -->
+            <!-- Left Sidebar Profile Summary -->
             <div class="lg:col-span-3 space-y-4">
-                <div class="mood-card rounded-2xl p-5 shadow-sm border text-center">
+                <div class="theme-card rounded-2xl p-4 border shadow-sm text-center">
                     <div class="relative inline-block mb-3">
-                        <img id="sidebarAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" class="w-20 h-20 rounded-full object-cover mx-auto border-4 border-white shadow">
-                        <span id="sidebarFlag" class="absolute bottom-0 right-0 text-lg bg-white rounded-full p-0.5 shadow">🇧🇷</span>
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar User" class="w-20 h-20 rounded-full mx-auto object-cover border-4 border-white shadow-md">
+                        <span id="profileMoodBadge" class="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow text-sm">😊</span>
                     </div>
-                    <h2 id="sidebarName" class="font-extrabold text-base">Sofia Silva</h2>
-                    <p id="sidebarHandle" class="text-[11px] mood-text-muted font-medium mb-3">@sofiasilva_br</p>
+                    <h3 class="font-bold text-lg" id="sidebarUserName">Ana Silva</h3>
+                    <p class="text-xs theme-text-muted mb-3"><i class="fa-solid fa-location-dot mr-1"></i> São Paulo, Brasil 🇧🇷</p>
                     
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold mood-chip mb-4">
-                        <span id="sidebarMoodIcon">💙</span> <span id="sidebarMoodText">Humor Nostálgico</span>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-1 py-3 border-y mood-border text-center text-[11px]">
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t theme-border text-center text-xs">
                         <div>
-                            <span class="block font-bold text-xs mood-text-primary" id="sidebarFriendsCount">142</span>
-                            <span class="mood-text-muted">Amigos</span>
+                            <span class="block font-bold text-sm">142</span>
+                            <span class="theme-text-muted">Amigos</span>
                         </div>
                         <div>
-                            <span class="block font-bold text-xs mood-text-primary" id="sidebarScrapsCount">89</span>
-                            <span class="mood-text-muted">Recados</span>
+                            <span class="block font-bold text-sm">38</span>
+                            <span class="theme-text-muted">Recados</span>
                         </div>
                         <div>
-                            <span class="block font-bold text-xs mood-text-primary">12</span>
-                            <span class="mood-text-muted">Países</span>
+                            <span class="block font-bold text-sm">521</span>
+                            <span class="theme-text-muted">Visitas</span>
                         </div>
                     </div>
-
-                    <div class="mt-4 text-left text-[11px] space-y-2">
-                        <p class="flex items-center gap-2 mood-text-muted">
-                            <i class="fa-solid fa-location-dot mood-text-primary"></i> <span id="sidebarLocation">São Paulo, Brasil</span>
-                        </p>
-                        <p class="flex items-center gap-2 mood-text-muted">
-                            <i class="fa-solid fa-language mood-text-primary"></i> <span id="sidebarLangs">Português, Inglês</span>
-                        </p>
-                    </div>
-
-                    <button onclick="switchTab('profile')" class="mt-4 w-full py-2 rounded-xl border mood-border font-bold text-xs hover:bg-black/5 transition">
-                        Ver Meu Perfil
-                    </button>
                 </div>
 
-                <!-- Invite Link Box -->
-                <div class="mood-card rounded-2xl p-4 shadow-sm border">
-                    <h3 class="font-bold text-xs uppercase tracking-wider mood-text-muted mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-envelope-open-text mood-text-primary"></i> Convite de Amigo
-                    </h3>
-                    <p class="text-[11px] mood-text-muted mb-3">Envie um link personalizado para trazer seus amigos externos ao WorldConnect!</p>
-                    <button onclick="copyInviteLink()" class="w-full py-2 px-3 rounded-xl mood-bg-primary text-white text-xs font-bold shadow hover:opacity-90 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-copy"></i> Copiar Link de Convite
-                    </button>
+                <!-- Global Quick Stats Card -->
+                <div class="theme-card rounded-2xl p-4 border shadow-sm">
+                    <h4 class="font-semibold text-sm mb-3 flex items-center">
+                        <i class="fa-solid fa-chart-pie mr-2 text-blue-500"></i> Humores pelo Mundo
+                    </h4>
+                    <div class="space-y-2 text-xs">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>😊 Feliz</span>
+                                <span class="font-semibold">45%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1.5"><div class="bg-yellow-400 h-1.5 rounded-full" style="width: 45%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>🎨 Criativo</span>
+                                <span class="font-semibold">30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1.5"><div class="bg-purple-500 h-1.5 rounded-full" style="width: 30%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>🌊 Calmo</span>
+                                <span class="font-semibold">25%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1.5"><div class="bg-cyan-500 h-1.5 rounded-full" style="width: 25%"></div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Center Column: Creator & Feed -->
-            <div class="lg:col-span-6 space-y-6">
+            <!-- Main Feed Center -->
+            <div class="lg:col-span-6 space-y-4">
+                
                 <!-- Create Post Box -->
-                <div class="mood-card rounded-2xl p-4 shadow-sm border">
+                <div class="theme-card rounded-2xl p-4 border shadow-sm">
                     <div class="flex items-start space-x-3">
-                        <img id="feedBoxAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" class="w-10 h-10 rounded-full object-cover border">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar" class="w-10 h-10 rounded-full object-cover">
                         <div class="flex-1">
-                            <textarea id="newPostText" rows="3" placeholder="O que você está pensando ou descobrindo pelo mundo hoje?..." class="w-full p-3 rounded-xl border mood-border text-xs focus:outline-none focus:ring-2 focus:ring-current resize-none mood-card"></textarea>
-                            
-                            <div class="flex flex-wrap items-center justify-between gap-2 mt-3 pt-2 border-t mood-border">
-                                <div class="flex items-center gap-2 text-xs">
-                                    <select id="postCountrySelect" class="p-1.5 rounded-lg border mood-border mood-card text-xs font-medium">
-                                        <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
-                                        <option value="🇯🇵 Japão">🇯🇵 Japão</option>
-                                        <option value="🇺🇸 EUA">🇺🇸 EUA</option>
-                                        <option value="🇮🇹 Itália">🇮🇹 Itália</option>
-                                        <option value="🇫🇷 França">🇫🇷 França</option>
-                                        <option value="🇳🇬 Nigéria">🇳🇬 Nigéria</option>
-                                    </select>
-                                    <span class="text-[10px] mood-text-muted">Visibilidade Pública</span>
+                            <textarea id="postInput" rows="2" placeholder="O que você está pensando ou descobrindo hoje pelo mundo?" class="w-full p-3 rounded-xl border theme-border focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none text-sm bg-transparent"></textarea>
+                            <div class="flex items-center justify-between mt-3">
+                                <div class="flex space-x-2 text-gray-500 text-sm">
+                                    <button class="hover:text-blue-500 p-1.5 rounded-lg hover:bg-gray-100 transition-colors" title="Adicionar Imagem">
+                                        <i class="fa-regular fa-image"></i>
+                                    </button>
+                                    <button class="hover:text-blue-500 p-1.5 rounded-lg hover:bg-gray-100 transition-colors" title="Localização">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </button>
+                                    <span id="postMoodIndicator" class="text-xs px-2 py-1 rounded-full theme-accent-light font-semibold self-center">Humor: 😊</span>
                                 </div>
-                                <button onclick="publishPost()" class="py-2 px-5 rounded-full mood-bg-primary text-white text-xs font-bold shadow hover:opacity-90 transition">
-                                    <i class="fa-solid fa-paper-plane mr-1"></i> Publicar
+                                <button onclick="addPost()" class="theme-btn-primary px-4 py-1.5 rounded-xl text-xs font-semibold shadow">
+                                    Publicar
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Feed Posts List -->
-                <div id="postsFeedContainer" class="space-y-4">
-                    <!-- Dynamic Posts Rendered Here -->
+                <!-- Feed Posts Stream -->
+                <div id="postsContainer" class="space-y-4">
+                    <!-- Posts dynamically populated by JS -->
                 </div>
             </div>
 
-            <!-- Right Sidebar -->
+            <!-- Right Sidebar International Friends Suggestions -->
             <div class="lg:col-span-3 space-y-4">
-                <!-- Suggested Global Friends -->
-                <div class="mood-card rounded-2xl p-4 shadow-sm border">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-xs uppercase tracking-wider">Sugestões de Amigos</h3>
-                        <button onclick="switchTab('explore')" class="text-xs mood-text-primary font-bold hover:underline">Ver Todos</button>
-                    </div>
-
-                    <div id="suggestedFriendsWidget" class="space-y-3">
-                        <!-- Dynamic Suggestions -->
+                <div class="theme-card rounded-2xl p-4 border shadow-sm">
+                    <h4 class="font-semibold text-sm mb-3 flex items-center justify-between">
+                        <span>Conexões Sugeridas</span>
+                        <i class="fa-solid fa-earth-americas text-blue-500"></i>
+                    </h4>
+                    <div class="space-y-3" id="suggestedFriendsList">
+                        <!-- Populated by JS -->
                     </div>
                 </div>
 
-                <!-- Global Stats -->
-                <div class="mood-card rounded-2xl p-4 shadow-sm border">
-                    <h3 class="font-bold text-xs uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie mood-text-primary"></i> Estatísticas Globais
-                    </h3>
-                    <div class="space-y-3 text-xs">
-                        <div>
-                            <div class="flex justify-between text-[11px] mb-1">
-                                <span>🇯🇵 Japão - Focado</span>
-                                <span class="font-bold">42%</span>
-                            </div>
-                            <div class="w-full bg-black/10 rounded-full h-1.5">
-                                <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 42%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[11px] mb-1">
-                                <span>🇧🇷 Brasil - Energético</span>
-                                <span class="font-bold">78%</span>
-                            </div>
-                            <div class="w-full bg-black/10 rounded-full h-1.5">
-                                <div class="bg-amber-500 h-1.5 rounded-full" style="width: 78%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[11px] mb-1">
-                                <span>🇮🇹 Itália - Apaixonado</span>
-                                <span class="font-bold">61%</span>
-                            </div>
-                            <div class="w-full bg-black/10 rounded-full h-1.5">
-                                <div class="bg-rose-500 h-1.5 rounded-full" style="width: 61%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== TAB 2: FIND FRIENDS (SUB-PAGE) ==================== -->
-        <section id="page-explore" class="hidden space-y-6">
-            <div class="mood-card rounded-3xl p-6 shadow-sm border">
-                <div class="max-w-3xl mx-auto text-center space-y-3">
-                    <h1 class="text-2xl font-extrabold tracking-tight">Descubra Pessoas pelo Mundo</h1>
-                    <p class="text-xs mood-text-muted">Filtre por nome, continente, país de origem e interesses comuns para fazer novas amizades sem fronteiras.</p>
-                    
-                    <!-- Search Controls -->
-                    <div class="pt-2 grid grid-cols-1 sm:grid-cols-12 gap-3 text-left">
-                        <div class="sm:col-span-5 relative">
-                            <input type="text" id="exploreSearchInput" onkeyup="filterFriendsList()" placeholder="Nome, palavra-chave ou bio..." class="w-full pl-9 pr-3 py-2.5 rounded-xl border mood-border text-xs mood-card focus:outline-none">
-                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-400 text-xs"></i>
-                        </div>
-                        <div class="sm:col-span-3">
-                            <select id="countryFilter" onchange="filterFriendsList()" class="w-full py-2.5 px-3 rounded-xl border mood-border text-xs mood-card focus:outline-none">
-                                <option value="">Todos os Países</option>
-                                <option value="Brasil">🇧🇷 Brasil</option>
-                                <option value="Japão">🇯🇵 Japão</option>
-                                <option value="EUA">🇺🇸 EUA</option>
-                                <option value="Itália">🇮🇹 Itália</option>
-                                <option value="França">🇫🇷 França</option>
-                                <option value="Espanha">🇪🇸 Espanha</option>
-                                <option value="Nigéria">🇳🇬 Nigéria</option>
-                                <option value="Canadá">🇨🇦 Canadá</option>
-                            </select>
-                        </div>
-                        <div class="sm:col-span-4">
-                            <select id="interestFilter" onchange="filterFriendsList()" class="w-full py-2.5 px-3 rounded-xl border mood-border text-xs mood-card focus:outline-none">
-                                <option value="">Todos os Interesses</option>
-                                <option value="Música">🎵 Música</option>
-                                <option value="Idiomas">🗣️ Idiomas & Cultura</option>
-                                <option value="Tecnologia">💻 Tecnologia</option>
-                                <option value="Viagens">✈️ Viagens</option>
-                                <option value="Culinária">🍕 Culinária</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Global Members Cards Grid -->
-            <div id="globalUsersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- User Cards Dynamically Generated -->
-            </div>
-        </section>
-
-        <!-- ==================== TAB 3: REQUESTS & INVITES ==================== -->
-        <section id="page-requests" class="hidden space-y-6">
-            <div class="max-w-4xl mx-auto space-y-6">
-                <div class="mood-card rounded-2xl p-6 shadow-sm border">
-                    <h2 class="text-lg font-bold mb-1 flex items-center gap-2">
-                        <i class="fa-solid fa-user-clock mood-text-primary"></i> Solicitações de Amizade Pendentes
-                    </h2>
-                    <p class="text-xs mood-text-muted mb-6">Membros internacionais que demonstraram interesse em se conectar com você.</p>
-
-                    <div id="pendingRequestsContainer" class="space-y-3">
-                        <!-- Pending List -->
-                    </div>
-                </div>
-
-                <!-- Custom Invitation Code Generator -->
-                <div class="mood-card rounded-2xl p-6 shadow-sm border flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div>
-                        <h3 class="font-bold text-sm">Convide Amigos por Link ou WhatsApp</h3>
-                        <p class="text-xs mood-text-muted mt-0.5">Gere um código exclusivo para compartilhar com seus conhecidos fora da rede.</p>
-                    </div>
-                    <button onclick="copyInviteLink()" class="py-2.5 px-5 rounded-xl mood-bg-primary text-white text-xs font-bold shadow hover:opacity-90 transition flex items-center gap-2 whitespace-nowrap">
-                        <i class="fa-solid fa-share-nodes"></i> Copiar Código de Convite
+                <!-- Quick Invite Widget -->
+                <div class="theme-card rounded-2xl p-4 border shadow-sm bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
+                    <h4 class="font-bold text-sm mb-1">Convide Amigos</h4>
+                    <p class="text-xs theme-text-muted mb-3">Compartilhe o WorldConnect para expandir sua rede global.</p>
+                    <button onclick="copyInviteLink()" class="w-full py-2 rounded-xl border border-blue-200 theme-btn-primary text-xs font-bold shadow-sm flex items-center justify-center space-x-1">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Copiar Link de Convite</span>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== TAB 4: MY PROFILE ==================== -->
-        <section id="page-profile" class="hidden space-y-6">
-            <div class="max-w-4xl mx-auto space-y-6">
-                <!-- Cover Banner & Avatar Header -->
-                <div class="mood-card rounded-3xl overflow-hidden shadow-sm border">
-                    <div class="h-36 sm:h-48 mood-bg-primary opacity-80 relative flex items-end justify-end p-4">
-                        <span class="text-[10px] bg-black/40 text-white px-3 py-1 rounded-full backdrop-blur-sm">Capa de Perfil Personalizada</span>
-                    </div>
-                    <div class="px-6 pb-6 pt-0 relative flex flex-col sm:flex-row items-center sm:items-end justify-between -mt-16 gap-4">
-                        <div class="flex flex-col sm:flex-row items-center sm:items-end gap-4 text-center sm:text-left">
-                            <img id="profileAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md">
-                            <div>
-                                <h1 id="profileName" class="text-2xl font-extrabold">Sofia Silva</h1>
-                                <p id="profileBio" class="text-xs mood-text-muted font-medium">Estudante de Letras & Entusiasta da Cultura Japonesa 🇯🇵🇧🇷</p>
-                            </div>
-                        </div>
-                        <button onclick="openEditProfileModal()" class="py-2 px-4 rounded-full border mood-border font-bold text-xs hover:bg-black/5 transition">
-                            <i class="fa-solid fa-pen mr-1"></i> Editar Perfil
-                        </button>
+        <!-- ================= PAGE 2: ENCONTRAR AMIGOS ================= -->
+        <section id="page-search" class="hidden space-y-6">
+            <div class="theme-card rounded-2xl p-6 border shadow-sm">
+                <h2 class="text-2xl font-bold mb-2">Explore & Encontre Amigos pelo Mundo 🌍</h2>
+                <p class="text-sm theme-text-muted mb-4">Conecte-se com pessoas de diferentes culturas, idiomas e interesses.</p>
+
+                <!-- Search Input & Filters -->
+                <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+                        <input type="text" id="globalSearchInput" oninput="filterFriends()" placeholder="Pesquisar por nome, país, idioma ou interesse..." class="w-full pl-10 pr-4 py-2 rounded-xl border theme-border focus:ring-2 focus:ring-blue-400 focus:outline-none bg-transparent text-sm">
                     </div>
                 </div>
 
-                <!-- Info Grid & Scraps Mural -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Left Bio Info -->
-                    <div class="mood-card rounded-2xl p-5 shadow-sm border space-y-4">
-                        <h3 class="font-bold text-xs uppercase tracking-wider border-b mood-border pb-2">Informações Pessoais</h3>
-                        
-                        <div class="text-xs space-y-3">
-                            <div>
-                                <span class="mood-text-muted block text-[10px]">País de Origem:</span>
-                                <span id="profileCountry" class="font-bold">🇧🇷 Brasil (São Paulo)</span>
-                            </div>
-                            <div>
-                                <span class="mood-text-muted block text-[10px]">Idiomas:</span>
-                                <span id="profileLangs" class="font-bold">Português (Nativo), Inglês</span>
-                            </div>
-                            <div>
-                                <span class="mood-text-muted block text-[10px] mb-1">Interesses:</span>
-                                <div class="flex flex-wrap gap-1">
-                                    <span class="px-2 py-0.5 rounded bg-black/5 text-[10px] font-medium">🎵 Música</span>
-                                    <span class="px-2 py-0.5 rounded bg-black/5 text-[10px] font-medium">✈️ Viagens</span>
-                                    <span class="px-2 py-0.5 rounded bg-black/5 text-[10px] font-medium">🗣️ Idiomas</span>
-                                </div>
-                            </div>
+                <!-- Filter Pills -->
+                <div class="flex flex-wrap gap-2 text-xs" id="regionFilters">
+                    <button onclick="setRegionFilter('todos')" class="filter-pill active px-3 py-1.5 rounded-full theme-btn-primary font-semibold">Todos</button>
+                    <button onclick="setRegionFilter('América do Sul')" class="filter-pill px-3 py-1.5 rounded-full border theme-border hover:bg-gray-100 dark:hover:bg-gray-800 font-semibold">América do Sul</button>
+                    <button onclick="setRegionFilter('Europa')" class="filter-pill px-3 py-1.5 rounded-full border theme-border hover:bg-gray-100 dark:hover:bg-gray-800 font-semibold">Europa</button>
+                    <button onclick="setRegionFilter('Ásia')" class="filter-pill px-3 py-1.5 rounded-full border theme-border hover:bg-gray-100 dark:hover:bg-gray-800 font-semibold">Ásia</button>
+                    <button onclick="setRegionFilter('América do Norte')" class="filter-pill px-3 py-1.5 rounded-full border theme-border hover:bg-gray-100 dark:hover:bg-gray-800 font-semibold">América do Norte</button>
+                </div>
+            </div>
+
+            <!-- Global Directory Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="directoryGrid">
+                <!-- Directory Cards populated by JS -->
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: SOLICITAÇÕES E CONVITES ================= -->
+        <section id="page-requests" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Pending Requests -->
+                <div class="theme-card rounded-2xl p-6 border shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa-solid fa-user-clock text-amber-500 mr-2"></i> Solicitações Pendentes
+                    </h3>
+                    <div class="space-y-4" id="pendingRequestsList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Custom Invite Link Generator -->
+                <div class="theme-card rounded-2xl p-6 border shadow-sm space-y-4">
+                    <h3 class="text-xl font-bold flex items-center">
+                        <i class="fa-solid fa-paper-plane text-blue-500 mr-2"></i> Gerador de Convites Exclusivos
+                    </h3>
+                    <p class="text-sm theme-text-muted">Gere um link direto para convidar seus amigos no GitHub Pages ou em qualquer lugar.</p>
+                    
+                    <div class="space-y-3">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500">Seu Link de Convite Pessoal</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="text" readonly id="inviteUrlDisplay" value="https://seu-usuario.github.io/worldconnect/?convite=WC-9842" class="w-full p-2.5 rounded-xl border theme-border bg-gray-50 dark:bg-gray-800 text-xs font-mono">
+                            <button onclick="copyInviteLink()" class="theme-btn-primary px-4 py-2.5 rounded-xl text-xs font-bold shrink-0">
+                                Copiar
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Right Scraps / Recados Mural (Orkut Style) -->
-                    <div class="md:col-span-2 mood-card rounded-2xl p-5 shadow-sm border space-y-4">
-                        <div class="flex items-center justify-between border-b mood-border pb-2">
-                            <h3 class="font-bold text-xs uppercase tracking-wider">Mural de Recados & Depoimentos (Scraps)</h3>
-                            <button onclick="addScrapPrompt()" class="text-xs mood-text-primary font-bold hover:underline">+ Escrever Recado</button>
-                        </div>
-
-                        <div id="scrapsContainer" class="space-y-3 text-xs">
-                            <!-- Dynamic Scraps -->
+                    <div class="pt-4 border-t theme-border space-y-3">
+                        <h4 class="text-sm font-semibold">Enviar Prévia por E-mail ou Mensagem</h4>
+                        <div class="p-4 rounded-xl theme-accent-light border theme-border text-xs space-y-2">
+                            <p class="font-bold">"Olá! Venha se conectar comigo no WorldConnect!"</p>
+                            <p class="text-gray-600 dark:text-gray-300">Estou usando esta nova rede social para compartilhar momentos, trocar idiomas e fazer amizades pelo mundo inteiro.</p>
                         </div>
                     </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: MEU PERFIL & RECADOS ================= -->
+        <section id="page-profile" class="hidden space-y-6">
+            <!-- Profile Banner & Header -->
+            <div class="theme-card rounded-2xl border shadow-sm overflow-hidden">
+                <div class="h-40 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 relative">
+                    <button class="absolute top-3 right-3 bg-black/40 hover:bg-black/60 text-white text-xs px-3 py-1.5 rounded-lg transition-colors">
+                        <i class="fa-solid fa-camera mr-1"></i> Alterar Capa
+                    </button>
+                </div>
+                <div class="px-6 pb-6 relative">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-end justify-between -mt-16 mb-4 space-y-3 sm:space-y-0">
+                        <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Profile" class="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover">
+                            <div>
+                                <h2 class="text-2xl font-bold" id="profilePageName">Ana Silva</h2>
+                                <p class="text-sm theme-text-muted">Entusiasta de Tecnologia & Viagens 🇧🇷</p>
+                            </div>
+                        </div>
+                        <button onclick="toggleEditBio()" class="px-4 py-2 border theme-border rounded-xl text-xs font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                            <i class="fa-solid fa-pen mr-1"></i> Editar Perfil
+                        </button>
+                    </div>
+
+                    <!-- Profile Bio -->
+                    <div class="border-t theme-border pt-4 text-sm">
+                        <p id="userBioText" class="theme-text-muted">Apaixonada por aprender novos idiomas, explorar culturas e programar soluções interativas na web!</p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium theme-accent-light">💻 Desenvolvimento Web</span>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium theme-accent-light">✈️ Viagens</span>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-medium theme-accent-light">🗣️ Português, Inglês, Espanhol</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mural de Recados (Scraps - Nostalgia Orkut) -->
+            <div class="theme-card rounded-2xl p-6 border shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b theme-border pb-3">
+                    <h3 class="text-lg font-bold flex items-center">
+                        <i class="fa-solid fa-note-sticky text-pink-500 mr-2"></i> Mural de Recados (Scraps)
+                    </h3>
+                    <span class="text-xs theme-text-muted" id="scrapCount">3 recados</span>
+                </div>
+
+                <!-- Add New Scrap -->
+                <div class="flex gap-2">
+                    <input type="text" id="scrapInput" placeholder="Deixe um recado carinhoso no mural..." class="flex-1 px-4 py-2 rounded-xl border theme-border text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-transparent">
+                    <button onclick="addScrap()" class="theme-btn-primary px-4 py-2 rounded-xl text-xs font-bold">
+                        Enviar Recado
+                    </button>
+                </div>
+
+                <!-- Scraps List -->
+                <div class="space-y-3" id="scrapsContainer">
+                    <!-- Populated by JS -->
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Authentication / Login & Signup Modal -->
-    <div id="authModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="mood-card rounded-3xl max-w-md w-full p-6 shadow-2xl border relative space-y-4">
-            <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <div class="text-center">
-                <h2 class="text-2xl font-black">WorldConnect</h2>
-                <p class="text-xs mood-text-muted">Entre na sua conta ou cadastre-se na rede social</p>
-            </div>
-
-            <!-- Tab Toggle between Login and Signup -->
-            <div class="flex border-b mood-border text-xs font-bold">
-                <button id="authTabLoginBtn" onclick="switchAuthForm('login')" class="flex-1 py-2 border-b-2 border-current mood-text-primary">Entrar</button>
-                <button id="authTabSignupBtn" onclick="switchAuthForm('signup')" class="flex-1 py-2 border-b-2 border-transparent text-gray-400">Criar Conta</button>
-            </div>
-
-            <!-- LOGIN FORM -->
-            <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-bold mb-1">E-mail</label>
-                    <input type="email" id="loginEmail" value="sofia@worldconnect.com" required class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                </div>
-                <div>
-                    <label class="block font-bold mb-1">Senha</label>
-                    <input type="password" id="loginPass" value="123456" required class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                </div>
-                <button type="submit" class="w-full py-3 rounded-xl mood-bg-primary text-white font-bold text-xs shadow hover:opacity-90 transition">
-                    Entrar na Rede
-                </button>
-            </form>
-
-            <!-- SIGNUP FORM -->
-            <form id="signupForm" onsubmit="handleSignupSubmit(event)" class="space-y-3 text-xs hidden">
-                <div>
-                    <label class="block font-bold mb-1">Nome Completo</label>
-                    <input type="text" id="signupName" placeholder="Ex: Carlos Eduardo" required class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                </div>
-                <div>
-                    <label class="block font-bold mb-1">E-mail</label>
-                    <input type="email" id="signupEmail" placeholder="seu@email.com" required class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                </div>
-                <div>
-                    <label class="block font-bold mb-1">País de Origem</label>
-                    <select id="signupCountry" class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                        <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
-                        <option value="🇯🇵 Japão">🇯🇵 Japão</option>
-                        <option value="🇺🇸 EUA">🇺🇸 EUA</option>
-                        <option value="🇮🇹 Itália">🇮🇹 Itália</option>
-                        <option value="🇫🇷 França">🇫🇷 França</option>
-                        <option value="🇪🇸 Espanha">🇪🇸 Espanha</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-bold mb-1">Idioma Primário</label>
-                    <input type="text" id="signupLangs" placeholder="Ex: Português, Inglês" required class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                </div>
-                <button type="submit" class="w-full py-3 rounded-xl mood-bg-primary text-white font-bold text-xs shadow hover:opacity-90 transition">
-                    Criar Conta Global
-                </button>
-            </form>
-
-            <div class="text-center pt-2">
-                <button onclick="loginAsGuest()" class="text-xs mood-text-primary font-bold hover:underline">
-                    Entrar como Visitante / Modo Demo
+    <!-- GitHub Deployment Instructions Modal -->
+    <div id="githubModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 space-y-4 border border-gray-200 dark:border-gray-700 shadow-2xl">
+            <div class="flex items-center justify-between border-b dark:border-gray-700 pb-3">
+                <h3 class="text-xl font-bold flex items-center space-x-2">
+                    <i class="fa-brands fa-github text-2xl"></i>
+                    <span>Como Hospedar no GitHub Pages</span>
+                </h3>
+                <button onclick="closeGithubModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">
+                    &times;
                 </button>
             </div>
-        </div>
-    </div>
 
-    <!-- Edit Profile Modal -->
-    <div id="editProfileModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="mood-card rounded-3xl max-w-md w-full p-6 shadow-2xl border relative space-y-4">
-            <button onclick="closeEditProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+                Siga este passo a passo simples para publicar o **WorldConnect** no GitHub gratuitamente em menos de 3 minutos!
+            </p>
 
-            <h2 class="text-lg font-bold">Editar Perfil</h2>
-
-            <form onsubmit="saveProfileChanges(event)" class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-bold mb-1">Biografia Curta</label>
-                    <input type="text" id="editBioInput" value="Estudante de Letras & Entusiasta da Cultura Japonesa 🇯🇵🇧🇷" class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                </div>
-                <div>
-                    <label class="block font-bold mb-1">Idiomas Falados</label>
-                    <input type="text" id="editLangsInput" value="Português (Nativo), Inglês" class="w-full p-2.5 rounded-xl border mood-border mood-card focus:outline-none">
-                </div>
-                <button type="submit" class="w-full py-2.5 rounded-xl mood-bg-primary text-white font-bold text-xs shadow hover:opacity-90 transition">
-                    Salvar Alterações
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- GitHub Pages Deployment Tutorial Modal -->
-    <div id="githubModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="mood-card rounded-3xl max-w-2xl w-full p-6 shadow-2xl border relative space-y-4 max-h-[90vh] overflow-y-auto text-xs">
-            <button onclick="closeGitHubInstructionsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <div class="flex items-center gap-3 border-b mood-border pb-3">
-                <div class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">
-                    <i class="fa-brands fa-github"></i>
-                </div>
-                <div>
-                    <h2 class="text-base font-extrabold">Como Hospedar no GitHub Pages Gratuitamente</h2>
-                    <p class="mood-text-muted text-[11px]">Siga os passos abaixo para colocar sua rede social no ar para todo mundo acessar.</p>
-                </div>
-            </div>
-
-            <ol class="list-decimal list-inside space-y-3 leading-relaxed">
-                <li class="p-3 rounded-xl bg-black/5">
-                    <strong>Crie uma conta e um Repositório no GitHub:</strong>
-                    <p class="mood-text-muted mt-1">Acesse <a href="https://github.com" target="_blank" class="text-indigo-600 underline">github.com</a>, clique no botão <strong>New Repository</strong>. Defina o nome (ex: <code>worldconnect-social</code>) e marque como <strong>Public</strong>.</p>
-                </li>
-                <li class="p-3 rounded-xl bg-black/5">
-                    <strong>Envie este arquivo de código:</strong>
-                    <p class="mood-text-muted mt-1">Dentro do repositório criado, clique em <strong>Add file &gt; Create new file</strong>. Renomeie o arquivo para <code>index.html</code>, cole todo o código deste arquivo e clique no botão verde <strong>Commit changes</strong>.</p>
-                </li>
-                <li class="p-3 rounded-xl bg-black/5">
-                    <strong>Ative o GitHub Pages:</strong>
-                    <p class="mood-text-muted mt-1">Vá na aba <strong>Settings</strong> do seu repositório &gt; no menu esquerdo clique em <strong>Pages</strong> &gt; em <em>Branch</em> selecione <code>main</code> (ou <code>master</code>) e /root &gt; clique em <strong>Save</strong>.</p>
-                </li>
-            </ol>
-
-            <div class="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200">
-                <p class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> Pronto!</p>
-                <p class="mt-0.5 text-[11px]">Em cerca de 2 a 3 minutos, seu site estará rodando ao vivo no endereço <code>https://seu-usuario.github.io/worldconnect-social/</code>.</p>
-            </div>
-
-            <button onclick="closeGitHubInstructionsModal()" class="w-full py-2.5 rounded-xl mood-bg-primary text-white font-bold text-xs">Entendi, fechar tutorial</button>
-        </div>
-    </div>
-
-    <!-- Notifications Modal -->
-    <div id="notifModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-end hidden">
-        <div class="mood-card w-full max-w-sm h-full p-6 shadow-2xl border-l flex flex-col justify-between">
-            <div>
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-bold text-sm">Notificações Recentes</h3>
-                    <button onclick="toggleNotificationsModal()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="space-y-3 text-xs">
-                    <div class="p-3 rounded-xl bg-black/5 flex items-center gap-3">
-                        <span class="text-lg">🇯🇵</span>
-                        <div>
-                            <p class="font-bold">Kenji Sato enviou uma solicitação de amizade!</p>
-                            <span class="mood-text-muted text-[10px]">Há 15 min</span>
-                        </div>
+            <div class="space-y-4 text-xs sm:text-sm">
+                <!-- Step 1 -->
+                <div class="flex items-start space-x-3 p-3 rounded-xl bg-blue-50 dark:bg-gray-700/50">
+                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">1</span>
+                    <div>
+                        <h4 class="font-bold mb-0.5">Crie um Repositório no GitHub</h4>
+                        <p class="text-gray-600 dark:text-gray-300">Acesse o GitHub, clique em **New Repository** e nomeie como <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">worldconnect</code> ou <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">seu-usuario.github.io</code>.</p>
                     </div>
-                    <div class="p-3 rounded-xl bg-black/5 flex items-center gap-3">
-                        <span class="text-lg">💖</span>
-                        <div>
-                            <p class="font-bold">Elena Rossi curtiu sua publicação.</p>
-                            <span class="mood-text-muted text-[10px]">Há 1 hora</span>
-                        </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex items-start space-x-3 p-3 rounded-xl bg-blue-50 dark:bg-gray-700/50">
+                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">2</span>
+                    <div>
+                        <h4 class="font-bold mb-0.5">Envie este Arquivo HTML</h4>
+                        <p class="text-gray-600 dark:text-gray-300">Salve todo este código em um arquivo exatamente chamado <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">index.html</code>. Faça o upload dele na raiz do repositório no GitHub.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex items-start space-x-3 p-3 rounded-xl bg-blue-50 dark:bg-gray-700/50">
+                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">3</span>
+                    <div>
+                        <h4 class="font-bold mb-0.5">Ative o GitHub Pages</h4>
+                        <p class="text-gray-600 dark:text-gray-300">No seu repositório, vá para **Settings** &rarr; **Pages**. Em **Source**, selecione a branch <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">main</code> e a pasta <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">/ (root)</code>. Clique em **Save**.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex items-start space-x-3 p-3 rounded-xl bg-blue-50 dark:bg-gray-700/50">
+                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">4</span>
+                    <div>
+                        <h4 class="font-bold mb-0.5">Pronto! Seu site está online</h4>
+                        <p class="text-gray-600 dark:text-gray-300">Em cerca de 1 minuto, seu link estará disponível em: <code class="bg-blue-100 dark:bg-gray-800 px-1 rounded">https://seu-usuario.github.io/worldconnect/</code></p>
                     </div>
                 </div>
             </div>
-            <button onclick="toggleNotificationsModal()" class="w-full py-2 rounded-xl border mood-border text-xs font-bold">Fechar</button>
+
+            <div class="pt-3 border-t dark:border-gray-700 flex justify-end">
+                <button onclick="closeGithubModal()" class="theme-btn-primary px-5 py-2 rounded-xl text-xs font-bold">
+                    Entendi, Vamos Começar!
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Toast Notification Box -->
-    <div id="toastBox" class="fixed bottom-5 right-5 z-50 bg-gray-900 text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-base" id="toastIcon"></i>
+    <!-- Notification Toast Box -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold flex items-center space-x-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-green-400"></i>
         <span id="toastMessage">Ação realizada com sucesso!</span>
     </div>
 
+    <!-- Footer -->
+    <footer class="theme-header border-t py-4 text-center text-xs theme-text-muted mt-6">
+        <p>WorldConnect &copy; 2026 - Conectando o mundo de forma simples e livre.</p>
+    </footer>
+
+    <!-- Application Logic Script -->
     <script>
-        /* ==================== APPLICATION STATE ==================== */
+        // State Management Data
         const state = {
-            currentMood: localStorage.getItem('wc_mood') || 'orkut',
-            currentUser: {
-                name: 'Sofia Silva',
-                handle: '@sofiasilva_br',
-                country: '🇧🇷 Brasil',
-                location: 'São Paulo, Brasil',
-                langs: 'Português, Inglês',
-                bio: 'Estudante de Letras & Entusiasta da Cultura Japonesa 🇯🇵🇧🇷',
-                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
-                friendsCount: 142,
-                scrapsCount: 2
-            },
-            // Global Mock Database
-            users: [
+            currentMood: 'feliz',
+            currentMoodIcon: '😊',
+            currentMoodName: 'Feliz',
+            activeTab: 'feed',
+            regionFilter: 'todos',
+            posts: [
                 {
                     id: 1,
-                    name: "Kenji Sato",
-                    username: "@kenji_tokyo",
-                    country: "Japão",
-                    flag: "🇯🇵",
-                    bio: "Desenvolvedor em Tóquio. Apaixonado por robótica e inteligência artificial.",
-                    interests: ["Tecnologia", "Música"],
-                    languages: ["Japonês", "Inglês"],
-                    mood: "Focado 🌙",
-                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
-                    status: "pending"
+                    author: "Elena Rostova",
+                    flag: "🇷🇺",
+                    location: "Moscou, Rússia",
+                    time: "Há 15 min",
+                    mood: "❄️ Calma",
+                    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150",
+                    content: "Dia incrível passeando no parque em Moscou! O clima frio me faz ter ainda mais ideias para novos projetos.",
+                    likes: 12,
+                    comments: 3
                 },
                 {
                     id: 2,
-                    name: "Elena Rossi",
-                    username: "@elena_roma",
-                    country: "Itália",
-                    flag: "🇮🇹",
-                    bio: "Chef de cozinha e arquiteta em Roma. Adoro fazer amizades pelo mundo!",
-                    interests: ["Culinária", "Viagens"],
-                    languages: ["Italiano", "Espanhol", "Inglês"],
-                    mood: "Apaixonado 💖",
-                    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=250",
-                    status: "friends"
-                },
-                {
-                    id: 3,
-                    name: "Amélie Laurent",
-                    username: "@amelie_paris",
-                    country: "França",
-                    flag: "🇫🇷",
-                    bio: "Estudante de arte no Louvre. Praticando português com novos amigos!",
-                    interests: ["Idiomas", "Arte"],
-                    languages: ["Francês", "Inglês", "Português"],
-                    mood: "Criativo 🎨",
-                    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=250",
-                    status: "none"
-                },
-                {
-                    id: 4,
-                    name: "Adebayo Okonjo",
-                    username: "@ade_lagos",
-                    country: "Nigéria",
-                    flag: "🇳🇬",
-                    bio: "Produtor musical e entusiasta de inovação digital em Lagos.",
-                    interests: ["Música", "Tecnologia"],
-                    languages: ["Inglês", "Yorùbá"],
-                    mood: "Energético ☀️",
-                    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=250",
-                    status: "none"
-                },
-                {
-                    id: 5,
-                    name: "Mateo Garcia",
-                    username: "@mateo_madrid",
-                    country: "Espanha",
-                    flag: "🇪🇸",
-                    bio: "Amante de esportes ao ar livre e gastronomia mediterrânea.",
-                    interests: ["Viagens", "Culinária"],
-                    languages: ["Espanhol", "Inglês"],
-                    mood: "Calmo 🌊",
-                    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=250",
-                    status: "none"
-                }
-            ],
-            posts: [
-                {
-                    id: 101,
                     author: "Kenji Sato",
                     flag: "🇯🇵",
-                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
-                    content: "Boa noite do Japão! 🌙 Hoje testamos um novo protótipo de robô na universidade de Tóquio. Quem mais ama tecnologia por aqui?",
-                    country: "Japão",
-                    likes: 19,
-                    comments: 4,
-                    time: "Há 2 horas"
-                },
-                {
-                    id: 102,
-                    author: "Elena Rossi",
-                    flag: "🇮🇹",
-                    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=250",
-                    content: "Dia lindo em Roma! Preparando uma receita tradicional de massa italiana. Um abraço a todos da rede WorldConnect! 🍝✨",
-                    country: "Itália",
-                    likes: 38,
-                    comments: 7,
-                    time: "Há 5 horas"
+                    location: "Tóquio, Japão",
+                    time: "Há 1 hora",
+                    mood: "🎨 Criativo",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+                    content: "Acabei de finalizar um novo mockup de interface inspirada na estética Cyberpunk de Shibuya. O que acharam?",
+                    likes: 29,
+                    comments: 8
                 }
             ],
+            friends: [
+                { id: 101, name: "Lucas Vance", flag: "🇨🇦", country: "Canadá", region: "América do Norte", lang: "Inglês / Francês", bio: "Designer de jogos e amante de caminhadas na neve.", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150", interests: ["Games", "Neve", "UI/UX"] },
+                { id: 102, name: "Sofia Rossi", flag: "🇮🇹", country: "Itália", region: "Europa", lang: "Italiano / Inglês", bio: "Fotógrafa urbana explorando cafeterias tradicionais.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150", interests: ["Fotografia", "Café", "Arte"] },
+                { id: 103, name: "Mateo Silva", flag: "🇦🇷", country: "Argentina", region: "América do Sul", lang: "Espanhol", bio: "Desenvolvedor Backend e apaixonado por churrasco e futebol.", avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150", interests: ["Node.js", "Futebol", "Música"] },
+                { id: 104, name: "Aisha Khan", flag: "🇮🇳", country: "Índia", region: "Ásia", lang: "Hindi / Inglês", bio: "Estudante de Inteligência Artificial e entusiasta do código aberto.", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150", interests: ["IA", "Open Source", "Viagens"] }
+            ],
+            requests: [
+                { id: 201, name: "Carlos Mendoza", flag: "🇲🇽", country: "México", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150" },
+                { id: 202, name: "Emily Watson", flag: "🇬🇧", country: "Reino Unido", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" }
+            ],
             scraps: [
-                { author: "Kenji Sato 🇯🇵", text: "Sofia, obrigado pelas dicas de português! Até breve!", time: "Ontem" },
-                { author: "Elena Rossi 🇮🇹", text: "Passando para deixar um grande abraço direto da Itália!", time: "Há 2 dias" }
+                { id: 1, author: "Lucas Vance", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150", text: "Passando para deixar aquele abraço do Canadá! Ótimo perfil!", time: "Ontem" },
+                { id: 2, author: "Sofia Rossi", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150", text: "Amei as fotos da sua viagem! Precisamos conversar sobre fotografia.", time: "Há 2 dias" }
             ]
         };
 
-        /* INITIALIZATION */
-        window.onload = function() {
-            setMood(state.currentMood);
-            renderPosts();
-            renderGlobalUsers();
-            renderPendingRequests();
-            renderSuggestedFriendsWidget();
-            renderScraps();
-        };
+        // Theme Switcher Function
+        function setMood(moodKey, icon, name) {
+            state.currentMood = moodKey;
+            state.currentMoodIcon = icon;
+            state.currentMoodName = name;
 
-        /* NAVIGATION TABS */
+            document.body.setAttribute('data-theme', moodKey);
+            document.getElementById('currentMoodIcon').innerText = icon;
+            document.getElementById('currentMoodName').innerText = name;
+            document.getElementById('profileMoodBadge').innerText = icon;
+            document.getElementById('postMoodIndicator').innerText = `Humor: ${icon}`;
+
+            localStorage.setItem('worldconnect_mood', moodKey);
+            localStorage.setItem('worldconnect_mood_icon', icon);
+            localStorage.setItem('worldconnect_mood_name', name);
+
+            showToast(`Humor alterado para ${name}!`);
+        }
+
+        // Tab Switching Function
         function switchTab(tabId) {
-            const tabs = ['feed', 'explore', 'requests', 'profile'];
-            tabs.forEach(tab => {
-                const page = document.getElementById(`page-${tab}`);
-                const btn = document.getElementById(`tab-${tab}`);
+            state.activeTab = tabId;
+            ['feed', 'search', 'requests', 'profile'].forEach(tab => {
+                const pageEl = document.getElementById(`page-${tab}`);
+                const tabBtn = document.getElementById(`tab-${tab}`);
+                
                 if (tab === tabId) {
-                    page.classList.remove('hidden');
-                    btn.classList.add('border-white', 'text-white');
-                    btn.classList.remove('border-transparent', 'text-white/80');
+                    pageEl.classList.remove('hidden');
+                    tabBtn.classList.add('theme-btn-primary');
+                    tabBtn.classList.remove('hover:bg-gray-100', 'dark:hover:bg-gray-800');
                 } else {
-                    page.classList.add('hidden');
-                    btn.classList.remove('border-white', 'text-white');
-                    btn.classList.add('border-transparent', 'text-white/80');
+                    pageEl.classList.add('hidden');
+                    tabBtn.classList.remove('theme-btn-primary');
+                    tabBtn.classList.add('hover:bg-gray-100', 'dark:hover:bg-gray-800');
                 }
             });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* MOOD SWITCHER */
-        function setMood(moodName) {
-            state.currentMood = moodName;
-            localStorage.setItem('wc_mood', moodName);
-            document.body.setAttribute('data-mood', moodName);
-
-            const moodLabels = {
-                orkut: { text: "Humor Nostálgico", icon: "💙" },
-                happy: { text: "Feliz & Energético", icon: "☀️" },
-                calm: { text: "Calmo & Relaxado", icon: "🌊" },
-                creative: { text: "Criativo & Inspirado", icon: "🎨" },
-                focused: { text: "Focado / Cyber", icon: "🌙" },
-                romantic: { text: "Apaixonado", icon: "💖" }
-            };
-
-            const info = moodLabels[moodName] || moodLabels.orkut;
-            document.getElementById('sidebarMoodIcon').innerText = info.icon;
-            document.getElementById('sidebarMoodText').innerText = info.text;
-
-            showToast(`Tema de humor alterado para: ${info.text}`);
-        }
-
-        /* FEED POSTS */
+        // Render Posts Feed
         function renderPosts() {
-            const container = document.getElementById('postsFeedContainer');
+            const container = document.getElementById('postsContainer');
             container.innerHTML = state.posts.map(post => `
-                <div class="mood-card rounded-2xl p-4 shadow-sm border space-y-3">
+                <div class="theme-card rounded-2xl p-4 border shadow-sm space-y-3">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
-                            <img src="${post.avatar}" class="w-10 h-10 rounded-full object-cover border">
+                            <img src="${post.avatar}" alt="${post.author}" class="w-10 h-10 rounded-full object-cover">
                             <div>
-                                <h4 class="font-bold text-xs flex items-center gap-1.5">
-                                    ${post.author} <span>${post.flag}</span>
+                                <h4 class="font-bold text-sm flex items-center">
+                                    <span>${post.author}</span>
+                                    <span class="ml-1.5 text-xs">${post.flag}</span>
                                 </h4>
-                                <span class="text-[10px] mood-text-muted">${post.time} • De ${post.country}</span>
+                                <p class="text-xs theme-text-muted">${post.location} &bull; ${post.time}</p>
                             </div>
                         </div>
-                        <button class="text-xs mood-text-muted hover:mood-text-primary"><i class="fa-solid fa-ellipsis"></i></button>
+                        <span class="text-xs px-2.5 py-1 rounded-full theme-accent-light font-medium">${post.mood}</span>
                     </div>
-
-                    <p class="text-xs leading-relaxed">${post.content}</p>
-
-                    <div class="flex items-center space-x-4 pt-2 border-t mood-border text-xs mood-text-muted">
-                        <button onclick="likePost(${post.id})" class="flex items-center gap-1 hover:mood-text-primary transition">
-                            <i class="fa-regular fa-heart"></i> <span>${post.likes} Curtidas</span>
+                    <p class="text-sm leading-relaxed">${post.content}</p>
+                    <div class="flex items-center space-x-4 border-t theme-border pt-2 text-xs text-gray-500">
+                        <button onclick="likePost(${post.id})" class="flex items-center space-x-1 hover:text-red-500 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                            <span>${post.likes} Curtidas</span>
                         </button>
-                        <button class="flex items-center gap-1 hover:mood-text-primary transition">
-                            <i class="fa-regular fa-comment"></i> <span>${post.comments} Comentários</span>
+                        <button class="flex items-center space-x-1 hover:text-blue-500 transition-colors">
+                            <i class="fa-regular fa-comment"></i>
+                            <span>${post.comments} Comentários</span>
                         </button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function publishPost() {
-            const textInput = document.getElementById('newPostText');
-            const countrySelect = document.getElementById('postCountrySelect');
-            const val = textInput.value.trim();
-
-            if (!val) {
-                showToast("Por favor, digite uma mensagem antes de publicar!");
-                return;
-            }
+        // Add New Post
+        function addPost() {
+            const input = document.getElementById('postInput');
+            const content = input.value.trim();
+            if (!content) return;
 
             const newPost = {
                 id: Date.now(),
-                author: state.currentUser.name,
-                flag: state.currentUser.country.split(' ')[0],
-                avatar: state.currentUser.avatar,
-                content: val,
-                country: countrySelect.value,
+                author: "Ana Silva",
+                flag: "🇧🇷",
+                location: "São Paulo, Brasil",
+                time: "Agora mesmo",
+                mood: `${state.currentMoodIcon} ${state.currentMoodName}`,
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+                content: content,
                 likes: 0,
-                comments: 0,
-                time: "Agora mesmo"
+                comments: 0
             };
 
             state.posts.unshift(newPost);
-            textInput.value = '';
+            input.value = '';
             renderPosts();
-            showToast("Sua mensagem foi publicada no feed global!");
+            showToast("Publicação enviada para o feed global!");
         }
 
-        function likePost(postId) {
-            const post = state.posts.find(p => p.id === postId);
+        // Like Post
+        function likePost(id) {
+            const post = state.posts.find(p => p.id === id);
             if (post) {
                 post.likes++;
                 renderPosts();
             }
         }
 
-        /* GLOBAL USERS SEARCH & EXPLORE */
-        function renderGlobalUsers(filterText = '', country = '', interest = '') {
-            const grid = document.getElementById('globalUsersGrid');
-            
-            const filtered = state.users.filter(u => {
-                const matchText = u.name.toLowerCase().includes(filterText.toLowerCase()) || 
-                                  u.bio.toLowerCase().includes(filterText.toLowerCase());
-                const matchCountry = !country || u.country.includes(country);
-                const matchInterest = !interest || u.interests.includes(interest);
-                return matchText && matchCountry && matchInterest;
+        // Render Suggested Friends Sidebar
+        function renderSuggestedFriends() {
+            const container = document.getElementById('suggestedFriendsList');
+            container.innerHTML = state.friends.slice(0, 3).map(friend => `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2.5">
+                        <img src="${friend.avatar}" class="w-8 h-8 rounded-full object-cover" alt="${friend.name}">
+                        <div class="text-xs">
+                            <span class="font-bold block">${friend.name} ${friend.flag}</span>
+                            <span class="theme-text-muted">${friend.country}</span>
+                        </div>
+                    </div>
+                    <button onclick="sendFriendRequest('${friend.name}')" class="p-1.5 rounded-lg theme-accent-light text-xs hover:opacity-80 transition-opacity">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Filter Global Directory Friends
+        function filterFriends() {
+            const query = document.getElementById('globalSearchInput').value.toLowerCase();
+            const filtered = state.friends.filter(f => {
+                const matchesQuery = f.name.toLowerCase().includes(query) ||
+                                     f.country.toLowerCase().includes(query) ||
+                                     f.lang.toLowerCase().includes(query) ||
+                                     f.interests.some(i => i.toLowerCase().includes(query));
+                const matchesRegion = state.regionFilter === 'todos' || f.region === state.regionFilter;
+                return matchesQuery && matchesRegion;
             });
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 mood-card rounded-2xl border">
-                        <i class="fa-solid fa-user-slash text-3xl mood-text-muted mb-2"></i>
-                        <p class="text-xs font-bold">Nenhum membro encontrado com os filtros selecionados.</p>
-                    </div>
-                `;
-                return;
-            }
+            renderDirectoryCards(filtered);
+        }
 
-            grid.innerHTML = filtered.map(u => {
-                let actionBtn = '';
-                if (u.status === 'friends') {
-                    actionBtn = `<span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 font-bold text-[10px]"><i class="fa-solid fa-check"></i> Amigos</span>`;
-                } else if (u.status === 'pending') {
-                    actionBtn = `<button onclick="cancelInvite(${u.id})" class="px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-600 font-bold text-[10px]"><i class="fa-solid fa-clock"></i> Pendente</button>`;
+        // Set Region Filter
+        function setRegionFilter(region) {
+            state.regionFilter = region;
+            document.querySelectorAll('#regionFilters button').forEach(btn => {
+                if (btn.innerText.includes(region) || (region === 'todos' && btn.innerText === 'Todos')) {
+                    btn.className = 'filter-pill active px-3 py-1.5 rounded-full theme-btn-primary font-semibold';
                 } else {
-                    actionBtn = `<button onclick="sendInvite(${u.id})" class="px-3 py-1.5 rounded-full mood-bg-primary text-white font-bold text-[10px] shadow hover:opacity-90 transition"><i class="fa-solid fa-user-plus"></i> Convidar</button>`;
+                    btn.className = 'filter-pill px-3 py-1.5 rounded-full border theme-border hover:bg-gray-100 dark:hover:bg-gray-800 font-semibold';
                 }
-
-                return `
-                    <div class="mood-card rounded-2xl p-5 shadow-sm border flex flex-col justify-between space-y-4">
-                        <div class="space-y-3">
-                            <div class="flex items-start justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <img src="${u.avatar}" class="w-12 h-12 rounded-full object-cover border shadow">
-                                    <div>
-                                        <h3 class="font-bold text-xs flex items-center gap-1.5">
-                                            ${u.name} <span>${u.flag}</span>
-                                        </h3>
-                                        <p class="text-[10px] mood-text-muted">${u.username} • ${u.country}</p>
-                                    </div>
-                                </div>
-                                <span class="text-[10px] px-2 py-0.5 rounded-full bg-black/5 font-semibold">${u.mood}</span>
-                            </div>
-
-                            <p class="text-xs mood-text-muted leading-relaxed">${u.bio}</p>
-
-                            <div class="flex flex-wrap gap-1 pt-1">
-                                ${u.interests.map(i => `<span class="text-[10px] px-2 py-0.5 rounded bg-black/5 font-medium">${i}</span>`).join('')}
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between pt-3 border-t mood-border">
-                            <span class="text-[10px] mood-text-muted">Idiomas: ${u.languages.join(', ')}</span>
-                            ${actionBtn}
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            });
+            filterFriends();
         }
 
-        function filterFriendsList() {
-            const text = document.getElementById('exploreSearchInput').value;
-            const country = document.getElementById('countryFilter').value;
-            const interest = document.getElementById('interestFilter').value;
-            renderGlobalUsers(text, country, interest);
-        }
-
-        function handleGlobalHeaderSearch(e) {
-            const query = e.target.value;
-            switchTab('explore');
-            document.getElementById('exploreSearchInput').value = query;
-            filterFriendsList();
-        }
-
-        /* FRIENDS & REQUESTS SYSTEM */
-        function sendInvite(userId) {
-            const u = state.users.find(x => x.id === userId);
-            if (u) {
-                u.status = 'pending';
-                filterFriendsList();
-                renderPendingRequests();
-                showToast(`Convite de amizade enviado para ${u.name}!`);
-            }
-        }
-
-        function cancelInvite(userId) {
-            const u = state.users.find(x => x.id === userId);
-            if (u) {
-                u.status = 'none';
-                filterFriendsList();
-                renderPendingRequests();
-                showToast(`Solicitação para ${u.name} cancelada.`);
-            }
-        }
-
-        function renderPendingRequests() {
-            const container = document.getElementById('pendingRequestsContainer');
-            const pendingList = state.users.filter(u => u.status === 'pending');
-
-            document.getElementById('requestsCount').innerText = pendingList.length;
-
-            if (pendingList.length === 0) {
-                container.innerHTML = `<p class="text-xs mood-text-muted text-center py-6">Nenhuma solicitação pendente no momento.</p>`;
+        // Render Directory Cards
+        function renderDirectoryCards(list) {
+            const container = document.getElementById('directoryGrid');
+            if (list.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center py-8 text-sm theme-text-muted">Nenhum amigo encontrado com estes filtros.</p>`;
                 return;
             }
 
-            container.innerHTML = pendingList.map(u => `
-                <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 text-xs">
+            container.innerHTML = list.map(friend => `
+                <div class="theme-card rounded-2xl p-4 border shadow-sm flex flex-col justify-between space-y-3">
                     <div class="flex items-center space-x-3">
-                        <img src="${u.avatar}" class="w-10 h-10 rounded-full object-cover">
+                        <img src="${friend.avatar}" class="w-12 h-12 rounded-full object-cover" alt="${friend.name}">
                         <div>
-                            <h4 class="font-bold text-xs">${u.name} ${u.flag}</h4>
-                            <p class="text-[10px] mood-text-muted">${u.country} • Quer se conectar com você</p>
+                            <h4 class="font-bold text-sm">${friend.name} ${friend.flag}</h4>
+                            <p class="text-xs theme-text-muted">${friend.country} &bull; ${friend.lang}</p>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="acceptInvite(${u.id})" class="px-3 py-1.5 rounded-xl mood-bg-primary text-white font-bold text-[10px]">Aceitar</button>
-                        <button onclick="cancelInvite(${u.id})" class="px-3 py-1.5 rounded-xl border mood-border font-bold text-[10px]">Recusar</button>
+                    <p class="text-xs leading-relaxed theme-text-muted">${friend.bio}</p>
+                    <div class="flex flex-wrap gap-1">
+                        ${friend.interests.map(i => `<span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 font-medium">${i}</span>`).join('')}
                     </div>
+                    <button onclick="sendFriendRequest('${friend.name}')" class="w-full py-2 rounded-xl border theme-border theme-accent-light text-xs font-bold hover:opacity-80 transition-opacity flex items-center justify-center space-x-1">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Enviar Solicitação</span>
+                    </button>
                 </div>
             `).join('');
         }
 
-        function acceptInvite(userId) {
-            const u = state.users.find(x => x.id === userId);
-            if (u) {
-                u.status = 'friends';
-                state.currentUser.friendsCount++;
-                document.getElementById('sidebarFriendsCount').innerText = state.currentUser.friendsCount;
-                filterFriendsList();
-                renderPendingRequests();
-                showToast(`Você e ${u.name} agora são amigos!`);
+        // Render Pending Requests
+        function renderRequests() {
+            const container = document.getElementById('pendingRequestsList');
+            if (state.requests.length === 0) {
+                container.innerHTML = `<p class="text-xs theme-text-muted">Nenhuma solicitação pendente no momento.</p>`;
+                return;
             }
-        }
 
-        function copyInviteLink() {
-            const code = "WORLD-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            const inviteUrl = `https://worldconnect.app/invite?code=${code}`;
-
-            const tempInput = document.createElement('input');
-            tempInput.value = inviteUrl;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-            showToast(`Link de convite gerado e copiado: ${code}`);
-        }
-
-        function renderSuggestedFriendsWidget() {
-            const container = document.getElementById('suggestedFriendsWidget');
-            const suggestions = state.users.filter(u => u.status === 'none').slice(0, 3);
-
-            container.innerHTML = suggestions.map(u => `
-                <div class="flex items-center justify-between text-xs">
-                    <div class="flex items-center space-x-2">
-                        <img src="${u.avatar}" class="w-8 h-8 rounded-full object-cover">
+            container.innerHTML = state.requests.map(req => `
+                <div class="flex items-center justify-between p-3 rounded-xl border theme-border">
+                    <div class="flex items-center space-x-3">
+                        <img src="${req.avatar}" class="w-10 h-10 rounded-full object-cover" alt="${req.name}">
                         <div>
-                            <h4 class="font-bold text-[11px] leading-none">${u.name} ${u.flag}</h4>
-                            <span class="text-[10px] mood-text-muted">${u.country}</span>
+                            <h4 class="font-bold text-sm">${req.name} ${req.flag}</h4>
+                            <p class="text-xs theme-text-muted">${req.country}</p>
                         </div>
                     </div>
-                    <button onclick="sendInvite(${u.id})" class="p-1.5 rounded-full mood-bg-primary text-white text-[10px]"><i class="fa-solid fa-user-plus"></i></button>
+                    <div class="flex space-x-2">
+                        <button onclick="acceptRequest(${req.id})" class="px-3 py-1.5 rounded-lg bg-green-500 text-white text-xs font-bold shadow hover:bg-green-600 transition-colors">Aceitar</button>
+                        <button onclick="rejectRequest(${req.id})" class="px-3 py-1.5 rounded-lg border theme-border text-xs font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Recusar</button>
+                    </div>
                 </div>
             `).join('');
         }
 
-        /* SCRAPS / RECADOS (ORKUT STYLE) */
+        function acceptRequest(id) {
+            state.requests = state.requests.filter(r => r.id !== id);
+            renderRequests();
+            showToast("Solicitação de amizade aceita!");
+        }
+
+        function rejectRequest(id) {
+            state.requests = state.requests.filter(r => r.id !== id);
+            renderRequests();
+            showToast("Solicitação recusada.");
+        }
+
+        function sendFriendRequest(name) {
+            showToast(`Solicitação enviada para ${name}!`);
+        }
+
+        // Render Scraps Mural
         function renderScraps() {
             const container = document.getElementById('scrapsContainer');
-            document.getElementById('sidebarScrapsCount').innerText = state.scraps.length;
-            container.innerHTML = state.scraps.map(s => `
-                <div class="p-3 rounded-xl bg-black/5 space-y-1">
-                    <div class="flex justify-between font-bold text-xs">
-                        <span>${s.author}</span>
-                        <span class="mood-text-muted text-[10px] font-normal">${s.time}</span>
+            document.getElementById('scrapCount').innerText = `${state.scraps.length} recados`;
+            container.innerHTML = state.scraps.map(scrap => `
+                <div class="p-3 rounded-xl border theme-border space-y-1 text-xs">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <img src="${scrap.avatar}" class="w-6 h-6 rounded-full object-cover">
+                            <span class="font-bold">${scrap.author}</span>
+                        </div>
+                        <span class="theme-text-muted text-[10px]">${scrap.time}</span>
                     </div>
-                    <p class="text-xs leading-relaxed">${s.text}</p>
+                    <p class="text-gray-700 dark:text-gray-300 pl-8">${scrap.text}</p>
                 </div>
             `).join('');
         }
 
-        function addScrapPrompt() {
-            const msg = prompt("Escreva um recado para o mural de " + state.currentUser.name + ":");
-            if (msg && msg.trim()) {
-                state.scraps.unshift({
-                    author: "Visitante da Rede 🌐",
-                    text: msg.trim(),
-                    time: "Agora mesmo"
-                });
-                renderScraps();
-                showToast("Recado deixado no mural!");
-            }
+        function addScrap() {
+            const input = document.getElementById('scrapInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            state.scraps.unshift({
+                id: Date.now(),
+                author: "Você (Visitante)",
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+                text: text,
+                time: "Agora mesmo"
+            });
+
+            input.value = '';
+            renderScraps();
+            showToast("Recado publicado no mural!");
         }
 
-        /* AUTH & MODALS */
-        function toggleAuthModal() {
-            document.getElementById('authModal').classList.toggle('hidden');
+        // Copy Invite Link
+        function copyInviteLink() {
+            const input = document.getElementById('inviteUrlDisplay');
+            input.select();
+            document.execCommand('copy');
+            showToast("Link de convite copiado!");
         }
 
-        function switchAuthForm(formType) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const loginBtn = document.getElementById('authTabLoginBtn');
-            const signupBtn = document.getElementById('authTabSignupBtn');
-
-            if (formType === 'login') {
-                loginForm.classList.remove('hidden');
-                signupForm.classList.add('hidden');
-                loginBtn.classList.add('border-current', 'mood-text-primary');
-                loginBtn.classList.remove('border-transparent', 'text-gray-400');
-                signupBtn.classList.remove('border-current', 'mood-text-primary');
-                signupBtn.classList.add('border-transparent', 'text-gray-400');
-            } else {
-                loginForm.classList.add('hidden');
-                signupForm.classList.remove('hidden');
-                signupBtn.classList.add('border-current', 'mood-text-primary');
-                signupBtn.classList.remove('border-transparent', 'text-gray-400');
-                loginBtn.classList.remove('border-current', 'mood-text-primary');
-                loginBtn.classList.add('border-transparent', 'text-gray-400');
-            }
-        }
-
-        function handleLoginSubmit(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            showToast(`Bem-vindo(a) de volta! Logado como ${email}`);
-            toggleAuthModal();
-        }
-
-        function handleSignupSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const country = document.getElementById('signupCountry').value;
-            const langs = document.getElementById('signupLangs').value;
-
-            state.currentUser.name = name;
-            state.currentUser.country = country;
-            state.currentUser.langs = langs;
-
-            updateUserInterface();
-            toggleAuthModal();
-            showToast("Conta criada com sucesso na rede WorldConnect!");
-        }
-
-        function loginAsGuest() {
-            state.currentUser.name = "Visitante Demo";
-            state.currentUser.country = "🌐 Internacional";
-            updateUserInterface();
-            toggleAuthModal();
-            showToast("Conectado como Visitante Demo!");
-        }
-
-        function updateUserInterface() {
-            document.getElementById('headerUserName').innerText = state.currentUser.name;
-            document.getElementById('sidebarName').innerText = state.currentUser.name;
-            document.getElementById('profileName').innerText = state.currentUser.name;
-            document.getElementById('profileCountry').innerText = state.currentUser.country;
-            document.getElementById('profileLangs').innerText = state.currentUser.langs;
-            document.getElementById('sidebarLangs').innerText = state.currentUser.langs;
-        }
-
-        function openEditProfileModal() {
-            document.getElementById('editProfileModal').classList.remove('hidden');
-        }
-
-        function closeEditProfileModal() {
-            document.getElementById('editProfileModal').classList.add('hidden');
-        }
-
-        function saveProfileChanges(e) {
-            e.preventDefault();
-            const bio = document.getElementById('editBioInput').value;
-            const langs = document.getElementById('editLangsInput').value;
-
-            state.currentUser.bio = bio;
-            state.currentUser.langs = langs;
-
-            document.getElementById('profileBio').innerText = bio;
-            document.getElementById('profileLangs').innerText = langs;
-            document.getElementById('sidebarLangs').innerText = langs;
-
-            closeEditProfileModal();
-            showToast("Perfil atualizado!");
-        }
-
-        /* GITHUB BANNER & MODAL */
-        function dismissGitHubBanner() {
-            document.getElementById('githubGuideBanner').style.display = 'none';
-        }
-
-        function openGitHubInstructionsModal() {
+        // GitHub Modal Toggle
+        function openGithubModal() {
             document.getElementById('githubModal').classList.remove('hidden');
         }
 
-        function closeGitHubInstructionsModal() {
+        function closeGithubModal() {
             document.getElementById('githubModal').classList.add('hidden');
         }
 
-        function toggleNotificationsModal() {
-            document.getElementById('notifModal').classList.toggle('hidden');
-            document.getElementById('notifBadge').classList.add('hidden');
-        }
-
-        /* TOAST ALERT SYSTEM */
+        // Toast Helper
         function showToast(msg) {
-            const toast = document.getElementById('toastBox');
+            const toast = document.getElementById('toast');
             document.getElementById('toastMessage').innerText = msg;
             toast.classList.remove('translate-y-20', 'opacity-0');
             setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3200);
+            }, 3000);
         }
+
+        // Initializer
+        window.onload = function() {
+            // Restore theme from localStorage if available
+            const savedMood = localStorage.getItem('worldconnect_mood');
+            const savedIcon = localStorage.getItem('worldconnect_mood_icon');
+            const savedName = localStorage.getItem('worldconnect_mood_name');
+
+            if (savedMood && savedIcon && savedName) {
+                setMood(savedMood, savedIcon, savedName);
+            }
+
+            renderPosts();
+            renderSuggestedFriends();
+            renderDirectoryCards(state.friends);
+            renderRequests();
+            renderScraps();
+        };
     </script>
 </body>
 </html>
